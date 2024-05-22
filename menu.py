@@ -1,4 +1,5 @@
 # Menu dictionary
+
 menu = {
     "Snacks": {
         "Cookie": .99,
@@ -53,6 +54,8 @@ menu = {
 # 1. Set up order list. Order list will store a list of dictionaries for
 # menu item name, item price, and quantity ordered
 
+orderList = {}
+
 
 # Launch the store and present a greeting to the customer
 print("Welcome to the variety food truck.")
@@ -61,6 +64,7 @@ print("Welcome to the variety food truck.")
 # loop
 place_order = True
 while place_order:
+    
     # Ask the customer from which menu category they want to order
     print("From which menu would you like to order? ")
 
@@ -118,31 +122,39 @@ while place_order:
                     }
                     i += 1
             # 2. Ask customer to input menu item number
-
+            menu_item_number = input("What item number would you like?")
 
             # 3. Check if the customer typed a number
+            if menu_item_number.isdigit():
 
                 # Convert the menu selection to an integer
-
+                menu_item_number = int(menu_item_number)
 
                 # 4. Check if the menu selection is in the menu items
+                if menu_item_number in menu_items:
 
                     # Store the item name as a variable
-
+                    item_position = menu_items[menu_item_number]
+                    itemName = item_position["Item name"]
 
                     # Ask the customer for the quantity of the menu item
-
+                    itemQuant = input("How many would you like?")
 
                     # Check if the quantity is a number, default to 1 if not
-
+                    if not itemQuant.isdigit():
+                        itemQuant = 1
 
                     # Add the item name, price, and quantity to the order list
-
-
+                    orderList[itemName] = {
+                        "Price": item_position["Price"],
+                        "Quantity": itemQuant
+                    }
+                    #TODO: Look at this error, why is it printing every run?
                     # Tell the customer that their input isn't valid
-
-
+                    print("Error")
+                #TODO: Is this supposed to print every time?
                 # Tell the customer they didn't select a menu option
+                print("You didn't select a menu option")
 
         else:
             # Tell the customer they didn't select a menu option
@@ -156,21 +168,31 @@ while place_order:
         keep_ordering = input("Would you like to keep ordering? (Y)es or (N)o ")
 
         # 5. Check the customer's input
-
+        if keep_ordering.upper() == "Y" or keep_ordering.upper() == "Yes":
                 # Keep ordering
 
                 # Exit the keep ordering question loop
-
+            break #exit question loop
                 # Complete the order
-
+       
                 # Since the customer decided to stop ordering, thank them for
                 # their order
-
+            
+           
                 # Exit the keep ordering question loop
+        elif keep_ordering.upper() == "N" or keep_ordering.upper() == "No":
+            print("Thank you for your order")
 
+            place_order = False
 
+            break
                 # Tell the customer to try again
 
+        else:
+            print("Try again")
+        
+
+""" Question: Why would I add an additional while loop when I can break the loop containing the answer? Additional questions here feel additive and not necessary"""
 
 # Print out the customer's order
 print("This is what we are preparing for you.\n")
@@ -181,20 +203,33 @@ print("This is what we are preparing for you.\n")
 print("Item name                 | Price  | Quantity")
 print("--------------------------|--------|----------")
 
+sum= 0
+
 # 6. Loop through the items in the customer's order
+for x,y in orderList.items():
 
-    # 7. Store the dictionary items as variables
+    # 7. Store the dictionary items as variables 
+    itemName = x
+    itemPrice = float(y["Price"])
+    itemChosenQuant = int(y["Quantity"])
 
+    # loop through list using dictionary nav, item name, price and quantity of that item
+    # print
+    print(itemName, itemPrice, itemChosenQuant)
 
     # 8. Calculate the number of spaces for formatted printing
-
+    num_item_spaces = 24 - len(key + key2) - 3
 
     # 9. Create space strings
-
+    item_spaces = " " * num_item_spaces
 
     # 10. Print the item name, price, and quantity
+    print(f"{i}      | {key} - {key2}{item_spaces} | ${value2}")
 
+    sum += itemPrice * itemChosenQuant
 
 # 11. Calculate the cost of the order using list comprehension
 # Multiply the price by quantity for each item in the order list, then sum()
 # and print the prices.
+
+print("Total: ", sum, "/nThank you for your business")
