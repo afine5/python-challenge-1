@@ -144,17 +144,19 @@ while place_order:
                     if not itemQuant.isdigit():
                         itemQuant = 1
 
+
                     # Add the item name, price, and quantity to the order list
                     orderList[itemName] = {
                         "Price": item_position["Price"],
                         "Quantity": itemQuant
                     }
-                    #TODO: Look at this error, why is it printing every run?
+
                     # Tell the customer that their input isn't valid
-                    print("Error")
-                #TODO: Is this supposed to print every time?
+                   
+                    
+                    #TODO: Is this supposed to print every time?
+
                 # Tell the customer they didn't select a menu option
-                print("You didn't select a menu option")
 
         else:
             # Tell the customer they didn't select a menu option
@@ -232,4 +234,4 @@ for x,y in orderList.items():
 # Multiply the price by quantity for each item in the order list, then sum()
 # and print the prices.
 
-print("Total: ", sum, "/nThank you for your business")
+print("Total: ", sum, "\nThank you for your business")
