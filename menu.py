@@ -54,7 +54,7 @@ menu = {
 # 1. Set up order list. Order list will store a list of dictionaries for
 # menu item name, item price, and quantity ordered
 
-orderList = {}
+orderList = []
 
 
 # Launch the store and present a greeting to the customer
@@ -144,19 +144,22 @@ while place_order:
                     if not itemQuant.isdigit():
                         itemQuant = 1
 
-
                     # Add the item name, price, and quantity to the order list
-                    orderList[itemName] = {
+                    orderList.append({
+                        "Name": itemName,
                         "Price": item_position["Price"],
                         "Quantity": itemQuant
-                    }
+                    })
 
                     # Tell the customer that their input isn't valid
-                   
+                else:
+                    print("That input is invalid")
                     
                     #TODO: Is this supposed to print every time?
 
                 # Tell the customer they didn't select a menu option
+            else:
+                print("You didn't select a menu option")
 
         else:
             # Tell the customer they didn't select a menu option
@@ -171,16 +174,13 @@ while place_order:
 
         # 5. Check the customer's input
         if keep_ordering.upper() == "Y" or keep_ordering.upper() == "Yes":
-                # Keep ordering
-
+            place_order = True
+            print("Continue to order")
                 # Exit the keep ordering question loop
             break #exit question loop
                 # Complete the order
-       
                 # Since the customer decided to stop ordering, thank them for
                 # their order
-            
-           
                 # Exit the keep ordering question loop
         elif keep_ordering.upper() == "N" or keep_ordering.upper() == "No":
             print("Thank you for your order")
@@ -208,25 +208,26 @@ print("--------------------------|--------|----------")
 sum= 0
 
 # 6. Loop through the items in the customer's order
-for x,y in orderList.items():
-
-    # 7. Store the dictionary items as variables 
-    itemName = x
-    itemPrice = float(y["Price"])
-    itemChosenQuant = int(y["Quantity"])
+for order in orderList:
+    
+    # 7. Store the dictionary items as variables
+    itemName = order["Name"]
+    itemPrice = float(order["Price"])
+    itemChosenQuant = int(order["Quantity"])
 
     # loop through list using dictionary nav, item name, price and quantity of that item
     # print
-    print(itemName, itemPrice, itemChosenQuant)
+    #print(itemName, itemPrice, itemChosenQuant)
 
     # 8. Calculate the number of spaces for formatted printing
-    num_item_spaces = 24 - len(key + key2) - 3
+    num_item_spaces = 24 - len(itemName) + 3
 
     # 9. Create space strings
-    item_spaces = " " * num_item_spaces
+    item_spaces = " " * (num_item_spaces -1)
+    item_spaces_price = " " * (8- (len(str(itemPrice)) +1 ))
 
     # 10. Print the item name, price, and quantity
-    print(f"{i}      | {key} - {key2}{item_spaces} | ${value2}")
+    print(f"{itemName}{item_spaces}|${itemPrice}{item_spaces_price}|{itemChosenQuant}")
 
     sum += itemPrice * itemChosenQuant
 
@@ -234,4 +235,4 @@ for x,y in orderList.items():
 # Multiply the price by quantity for each item in the order list, then sum()
 # and print the prices.
 
-print("Total: ", sum, "\nThank you for your business")
+print(f"Total: ${sum:.2f} \nThank you for your business")
