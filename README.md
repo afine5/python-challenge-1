@@ -1,6 +1,13 @@
 # python-challenge-1
 Module 2 Homework
 
+### Edit
+This assignment has been updated since being graded. I've rectified the errors for:
+line 57:  it's not a list should be orderList=[]    -2
+line 173:  The while loop to continue ordering isn't complete  -10
+line 173:  isn't "perfect"  -2
+I've also cleaned up the output strings so line up as they should.
+
 ### Homework
 
 For this week’s assignment I used the prompts to guide how I should write lines of code to create a working, interactive menu ordering system. The prompts overall were about deconstructing, reconstructing dictionaries and using loops to not only read and process the data, but also compound inputs to give the user a final, total cost in a receipt.
